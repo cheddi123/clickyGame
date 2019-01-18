@@ -18,15 +18,21 @@ class App extends React.Component {
     count: 0,
     topScore: 0,
     isClicked: [],
-    Images
+    Images,
+    rightWrong: "",
   };
 
   handleClick = id => {
     if (this.state.isClicked.indexOf(id) === -1) {
       this.handleIncrement();
       this.setState({ isClicked: this.state.isClicked.concat(id) });
+      console.log(id)
+      console.log(this.state.isClicked.indexOf(id))
     } else {
       this.handleReset();
+      console.log(id)
+     console.log(this.state.isClicked.indexOf(id)) 
+
     }
   };
 
@@ -43,15 +49,19 @@ class App extends React.Component {
     if (newScore >= this.state.topScore) {
       this.setState({ topScore: newScore });
     }
+    else if (newScore === 8) {
+      this.setState({ rightWrong: "You win!" });
+    }
     this.handleShuffle();
-
+    
   };
 
   handleReset = () => {
     this.setState({
-      score: 0,
+      count: 0,
       topScore: this.state.topScore,
-      IsClicked: []
+      IsClicked: [],
+      rightWrong: "Play again",
     });
     this.handleShuffle();
   };
@@ -73,7 +83,7 @@ class App extends React.Component {
           topCount={this.state.topScore}
           />
           <div className="card-header bg-primary text-white">
-            Click Counter!
+           
         </div>
 
         </div>
