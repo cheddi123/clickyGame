@@ -6,6 +6,7 @@ import Title from "./components/Title/Title"
 import Wrapper from "./components/Wrapper/Wrapper"
 import "./App.css"
 
+// function to randomly shuffle the array
 function shuffleImages(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
@@ -25,6 +26,7 @@ class App extends React.Component {
     message: "",
   };
 
+  
   handleClick = id => {
     if (this.state.clickedImage.indexOf(id) === -1) {
       this.handleIncrement();
@@ -44,7 +46,7 @@ class App extends React.Component {
   // handleIncrement increments this.state.count by 1
   handleIncrement = () => {
     const newScore = this.state.count + 1;
-    // We always use the setState method to update a component's state
+    // the setState method to update a component's state
     this.setState({
       count: newScore,
       isClicked: this.state.clickedImage
@@ -76,6 +78,7 @@ class App extends React.Component {
     this.handleShuffle();
   };
 
+  // function to invoke the shuffleImages function 
   handleShuffle = () => {
     let rearrangedImages = shuffleImages(Images);
     this.setState({ Images: rearrangedImages });
