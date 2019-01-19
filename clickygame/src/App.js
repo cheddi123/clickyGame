@@ -34,7 +34,7 @@ class App extends React.Component {
       console.log(id)
       console.log(this.state.clickedImage.indexOf(id))
     } else {
-      this.handleReset();
+      this.Reset();
       console.log(id)
       console.log(this.state.clickedImage.indexOf(id))
 
@@ -68,7 +68,7 @@ class App extends React.Component {
   };
 }
  // reset the game back to score zero
-  handleReset = () => {
+  Reset = () => {
     this.setState({
       count: 0,
       topScore: this.state.topScore,
@@ -113,7 +113,7 @@ class App extends React.Component {
                 id={image.id}
                 handleClick={this.handleClick}
                 // handleIncrement={this.handleIncrement}
-                // handleReset={this.handleReset}
+                // handleReset={this.Reset}
                 // handleShuffle={this.handleShuffle}
               />
 
