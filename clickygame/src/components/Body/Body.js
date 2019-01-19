@@ -2,16 +2,16 @@ import React from "react";
 import "./style.css"
 
 
-const Body = props => (
+const Bodys = props => (
     <div
          value={props.id}
         onClick={() => props.handleClick(props.id)}>
 
         <div >
-            <img className="img"  alt="" src={props.photo} />
+            <img className="img grow"  alt="" src={props.photo} />
         </div>
 
    </div>
 )
 
-export default Body
+export default Bodys

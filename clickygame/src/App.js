@@ -1,7 +1,10 @@
 import React from "react";
 import Header from "./components/Header/Header"
 import Images from "./components/Images/Images"
-import Body from "./components/Body/Body"
+import Bodys from "./components/Body/Body"
+import Title from "./components/Title/Title"
+import Wrapper from "./components/Wrapper/Wrapper"
+import "./App.css"
 
 function shuffleImages(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -17,21 +20,21 @@ class App extends React.Component {
   state = {
     count: 0,
     topScore: 0,
-    isClicked: [],
+    clickedImage: [],
     Images,
-    rightWrong: "",
+    message: "",
   };
 
   handleClick = id => {
-    if (this.state.isClicked.indexOf(id) === -1) {
+    if (this.state.clickedImage.indexOf(id) === -1) {
       this.handleIncrement();
-      this.setState({ isClicked: this.state.isClicked.concat(id) });
+      this.setState({ clickedImage: this.state.clickedImage.concat(id) });
       console.log(id)
-      console.log(this.state.isClicked.indexOf(id))
+      console.log(this.state.clickedImage.indexOf(id))
     } else {
       this.handleReset();
       console.log(id)
-     console.log(this.state.isClicked.indexOf(id)) 
+      console.log(this.state.clickedImage.indexOf(id))
 
     }
   };
@@ -44,24 +47,31 @@ class App extends React.Component {
     // We always use the setState method to update a component's state
     this.setState({
       count: newScore,
-      isClicked: this.state.isClicked
+      isClicked: this.state.clickedImage
     });
     if (newScore >= this.state.topScore) {
-      this.setState({ topScore: newScore });
+      this.setState({ 
+        topScore: newScore ,
+        message: "Correct guess" 
+      });
+      console.log(this.state.message)
     }
-    else if (newScore === 8) {
-      this.setState({ rightWrong: "You win!" });
+     if (newScore === Images.length) {
+      this.setState({ message: "You win! Click  to play again " });
+      console.log(this.state.message)
     }
-    this.handleShuffle();
-    
-  };
+     else{this.handleShuffle();
+    //  console.log(Images.length)
 
+  };
+}
+ // reset the game back to score zero
   handleReset = () => {
     this.setState({
       count: 0,
       topScore: this.state.topScore,
-      IsClicked: [],
-      rightWrong: "Play again",
+      clickedImage: [],
+      message: "",
     });
     this.handleShuffle();
   };
@@ -70,35 +80,38 @@ class App extends React.Component {
     let rearrangedImages = shuffleImages(Images);
     this.setState({ Images: rearrangedImages });
   };
-  
+
 
   // The render method returns the JSX that should be rendered
   render() {
 
     return (
-      <div>
+      <Wrapper>
         <div className="card text-center">
-          <Header 
-          count={this.state.count} 
-          topCount={this.state.topScore}
+          <Header
+            count={this.state.count}
+            topCount={this.state.topScore}
+            alertMessage={this.state.message}
           />
           <div className="card-header bg-primary text-white">
-           
-        </div>
+            <Title />
+          </div>
 
         </div>
+        <div className="container"> 
         {this.state.Images.map((image) => (
-          <span className="container" key={image.id}>
 
-            <button className="btn"  >
-              <Body
+          <span className="container padding " key={image.id}>
 
+            <button className="btn btn-danger grow padding"  >{""}
+              <Bodys
+                key={image.id}
                 photo={image.img}
                 id={image.id}
                 handleClick={this.handleClick}
-                handleIncrement={this.handleIncrement}
-                handleReset={this.handleReset}
-                handleShuffle={this.handleShuffle}
+                // handleIncrement={this.handleIncrement}
+                // handleReset={this.handleReset}
+                // handleShuffle={this.handleShuffle}
               />
 
             </button>
@@ -106,7 +119,8 @@ class App extends React.Component {
           </span>
 
         ))}
-      </div>
+        </div>
+      </Wrapper>
     );
   }
 
